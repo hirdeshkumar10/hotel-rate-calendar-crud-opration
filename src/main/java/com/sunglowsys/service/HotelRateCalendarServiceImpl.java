@@ -4,6 +4,8 @@ import com.sunglowsys.domain.HotelRateCalendar;
 import com.sunglowsys.repository.HotelRateCalendarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,9 +36,9 @@ public class HotelRateCalendarServiceImpl implements HotelRateCalendarService{
     }
 
     @Override
-    public List<HotelRateCalendar> findAll() {
-        log.debug("Request to findAll HotelRateCalendar:");
-        return hotelRateCalendarRepository.findAll();
+    public Page<HotelRateCalendar> findAll(Pageable pageable) {
+        log.debug("Request to findAll HotelRateCalendar: {}",pageable.toString());
+        return hotelRateCalendarRepository.findAll(pageable);
     }
 
     @Override

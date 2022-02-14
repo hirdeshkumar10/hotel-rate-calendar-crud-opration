@@ -4,6 +4,8 @@ import com.sunglowsys.domain.HotelRateCalendar;
 import com.sunglowsys.service.HotelRateCalendarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,12 +52,12 @@ public class HotelRateCalendarResource {
     }
 
     @GetMapping("/hotel-rate-calendars")
-    public ResponseEntity<List<HotelRateCalendar>> findAllHotelRateCalendar(){
-        log.debug("Rest request to find to list HotelRateCalendar:");
-        List<HotelRateCalendar> result = hotelRateCalendarService.findAll();
+    public ResponseEntity<List<HotelRateCalendar>> findAllHotelRateCalendar(Pageable pageable){
+        log.debug("Rest request to find to list HotelRateCalendar: {}",pageable.toString());
+        Page<HotelRateCalendar> result = hotelRateCalendarService.findAll(pageable);
         return ResponseEntity
                 .ok()
-                .body(result);
+                .body(result.getContent());
     }
 
     @GetMapping("/hotel-rate-calendars/{id}")
@@ -72,7 +74,7 @@ public class HotelRateCalendarResource {
         log.debug("Rest request to  delete  HotelRateCalendar:");
         hotelRateCalendarService.delete(id);
         return ResponseEntity
-                .noContent()
+                .ok()
                 .build();
     }
 
