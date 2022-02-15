@@ -8,13 +8,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
+
 import java.util.Optional;
 
 @Service
+@Transactional
 public class HotelRateCalendarServiceImpl implements HotelRateCalendarService{
 
-    private final Logger log = LoggerFactory.getLogger(HotelRateCalendar.class);
+    private final Logger log = LoggerFactory.getLogger(HotelRateCalendarServiceImpl.class);
 
     private final HotelRateCalendarRepository hotelRateCalendarRepository;
 
@@ -25,7 +27,7 @@ public class HotelRateCalendarServiceImpl implements HotelRateCalendarService{
 
     @Override
     public HotelRateCalendar create(HotelRateCalendar hotelRateCalendar) {
-        log.debug("Request to create HotelRateCalendar: {}",hotelRateCalendar);
+        log.debug("Request to create HotelRateCalendar: {} ",hotelRateCalendar);
         return hotelRateCalendarRepository.save(hotelRateCalendar);
     }
 
